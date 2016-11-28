@@ -1,6 +1,8 @@
 from django.contrib.auth.models import User, Group
 from rest_framework import viewsets
-from vl_api.quickstart.serializers import UserSerializer, GroupSerializer
+from quickstart.serializers import (
+    UserSerializer, GroupSerializer, VoterSerializer)
+from quickstart.models import Voter
 
 
 class UserViewSet(viewsets.ModelViewSet):
@@ -17,3 +19,11 @@ class GroupViewSet(viewsets.ModelViewSet):
     """
     queryset = Group.objects.all()
     serializer_class = GroupSerializer
+
+
+class VoterViewSet(viewsets.ModelViewSet):
+    """
+    API endpoint that allows groups to be viewed or edited.
+    """
+    queryset = Voter.objects.all()
+    serializer_class = VoterSerializer
