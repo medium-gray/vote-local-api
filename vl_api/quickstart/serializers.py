@@ -25,18 +25,16 @@ class UserSerializer(serializers.HyperlinkedModelSerializer):
 
     class Meta:
         model = User
-        fields = ('url', 'username', 'email', 'groups', 'voter')
+        fields = ('url', 'username', 'password', 'email', 'groups', 'voter')
 
     def create(self, validated_data):
         voter_data = validated_data.pop('voter')
         user = User.objects.create(
             username=validated_data['username'],
-            email=validated_data['email']
-            # voter=voter
-            # first_name=validated_data['first_name'],
-            # last_name=validated_data['last_name']
+            email=validated_data['email'],
         )
         Voter.objects.create(
+            user=user,
             address=voter_data['address'],
             party=voter_data['party'],
             name=voter_data['name'],
